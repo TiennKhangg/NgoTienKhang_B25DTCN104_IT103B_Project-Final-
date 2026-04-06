@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.header p {
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+/* Chia cột cho Họ và Tên */
+.row {
+    display: flex;
+    gap: 15px;
+}
+.name-group {
+    display: flex;
+    flex-direction: row ;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-group {
+    margin-bottom: 18px;
+    flex: 1;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #007bff;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 0.85rem;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #374151;
+    
+}
+.checkbox-container input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.checkbox-container input:checked {
+  background-color: rgb(64, 226, 64);
+}
+.checkbox-container a {
+    color: #007bff;
+    text-decoration: none;
+}
+.blue-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    /* Màu xanh chuẩn như ảnh */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.switch-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+.switch-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.message {
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    display: none;
+}
+
+.message.error {
+    display: block;
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+.message.success {
+    display: block;
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+}

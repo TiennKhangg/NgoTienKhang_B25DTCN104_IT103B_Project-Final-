@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý bài học</title>
+    <link rel="stylesheet" href="../css/lession.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="wrapper">
+        <aside class="sidebar">
+            <div class="logo-area">
+                <i  style="font-size: 24px;">📚</i>
+                <div class="logo-text">
+                    <strong>Study Tracker</strong>
+                    <span>Quản lý tiến độ học tập</span>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="#"><img src="../assets/images/uuu.png" alt=""> Thống kê</a>
+                <a href="./lession.html"></i><img src="../assets/images/quanlymonhocunmainpage.png   " alt=""> Quản
+                    lý môn học</a>
+                <a href="#" class="active"></i><img
+                        src="../assets/images/quanlybaihocmainpage.png" alt=""> Quản lý bài học</a>
+                
+            </nav>
+        </aside>
+        <main class="main-body">
+            <header class="top-bar">
+                <i style="color: #a0aec0; cursor: pointer;"><img
+                        src="../assets/images/View grid.png" alt=""></i>
+                <div class="top-right">
+                    <i ><img src="../assets/images/Vector.png" alt=""></i>
+                    <i ><img src="../assets/images/Vector (1).png" alt=""></i>
+                    <i  ><img src="../assets/images/Vector (2).png" alt=""></i>
+                    <div class="user-dropdown" id="userDropdown">
+                        <img src="https://i.pravatar.cc/35" alt="User" class="user-avatar" style="border-radius: 50%;">
+                        <div class="logout-menu" id="logoutMenu">
+                            <button type="button" id="logoutBtn">Đăng xuất</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="heading-row">
+                    <h1>Bài học</h1>
+                    <div class="heading-actions">
+                        <select class="filter-status" id="subjectFilter">
+                            <option value="all">Lọc theo môn học</option>
+                            <option value="HTML/CSS">HTML/CSS</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="React">React</option>
+                        </select>
+                        <button class="btn-add" onclick="showAddForm()">Thêm mới bài học</button>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <input id="searchInput" oninput="filterLessons()" type="text" placeholder="Tìm kiếm bài học theo tên...">
+                    <i><img src="../assets/images/Shape.png" alt=""></i>
+                </div>
+
+                <div class="sort-container">
+                    <select id="sortSelect" class="filter-status" onchange="sortLessons()">
+                        <option value="name">Sắp xếp theo tên</option>
+                        <option value="createdAt">Sắp xếp theo thời gian tạo</option>
+                    </select>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;"><input type="checkbox" id="selectAll" onchange="toggleSelectAll()"></th>
+                                <th>Tên bài học <span style="color: #999;">↓</span></th>
+                                <th>Thời gian học <span style="color: #999;">↓</span></th>
+                                <th>Trạng thái</th>
+                                <th>Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lessonTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination" id="paginationContainer">
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Modal Thêm mới bài học -->
+    <div id="modalAdd" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header-custom">
+                <h3>Thêm mới bài học</h3>
+                <span class="close-icon" onclick="closeAddForm()">&times;</span>
+            </div>
+            <div class="modal-body-custom">
+                <div class="input-group">
+                    <label>Tên bài học</label>
+                    <input type="text" id="lessonName" placeholder="Nhập tên bài học">
+                </div>
+                <div class="input-group">
+                    <label>Môn học</label>
+                    <select id="lessonSubject">
+                        <option value="">Chọn môn học</option>
+                        <option value="HTML/CSS">HTML/CSS</option>
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="React">React</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Thời gian học (phút)</label>
+                    <input type="number" id="lessonTime" placeholder="Nhập thời gian học">
+                </div>
+                <div class="radio-group-container">
+                    <label>Trạng thái</label>
+                    <div class="radio-options">
+                        <label class="radio-item">
+                            <input type="radio" name="lessonStatus" value="incomplete" checked>
+                            Chưa hoàn thành
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="lessonStatus" value="completed">
+                            Đã hoàn thành
+                        </label>
+                    </div>
+                </div>
+                <div id="addError" class="modal-error"></div>
+            </div>
+            <div class="modal-footer-custom">
+                <button class="btn-huy" onclick="closeAddForm()">Hủy</button>
+                <button class="btn-them" id="btnAddSave" onclick="addLesson()">Thêm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cập nhật bài học -->
+    <div id="modalEdit" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header-custom">
+                <h3>Cập nhật bài học</h3>
+                <span class="close-icon" onclick="closeEditForm()">&times;</span>
+            </div>
+            <div class="modal-body-custom">
+                <div class="input-group">
+                    <label>Tên bài học</label>
+                    <input type="text" id="editLessonName" placeholder="Nhập tên bài học">
+                </div>
+                <div class="input-group">
+                    <label>Môn học</label>
+                    <select id="editLessonSubject">
+                        <option value="">Chọn môn học</option>
+                        <option value="HTML/CSS">HTML/CSS</option>
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="React">React</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Thời gian học (phút)</label>
+                    <input type="number" id="editLessonTime" placeholder="Nhập thời gian học">
+                </div>
+                <div class="radio-group-container">
+                    <label>Trạng thái</label>
+                    <div class="radio-options">
+                        <label class="radio-item">
+                            <input type="radio" name="editLessonStatus" value="incomplete" checked>
+                            Chưa hoàn thành
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="editLessonStatus" value="completed">
+                            Đã hoàn thành
+                        </label>
+                    </div>
+                </div>
+                <div id="editError" class="modal-error"></div>
+            </div>
+            <div class="modal-footer-custom">
+                <button class="btn-huy" onclick="closeEditForm()">Hủy</button>
+                <button class="btn-them" id="btnEditSave" onclick="updateLesson()">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Xác nhận xóa -->
+    <div id="modalDelete" class="modal-overlay">
+        <div class="modal-content">
+            <div class="warning-icon-wrapper">
+                <div class="warning-icon-circle">
+                    <img src="../assets/images/chamthan.png" alt="Cảnh báo">
+                </div>
+            </div>
+            <h3>Xác nhận</h3>
+            <p id="deleteMessage">Bạn có chắc chắn muốn xóa bài học này khỏi hệ thống không?</p>
+            <div class="modal-footer-custom">
+                <button class="btn-huy" onclick="closeDeleteModal()">Hủy</button>
+                <button class="btn-them" style="background-color: #e53e3e;" onclick="deleteLesson()">Xóa</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thông báo -->
+    <div id="notifySuccess" class="notification" style="display: none;">
+        <div class="notif-header">
+            <span style="font-size: 18px;"><img src="../assets/images/Subtract.png" alt=""></span> Thông báo
+        </div>
+        <p id="notifyMessage">Bạn không có quyền truy cập trang này.</p>
+    </div>
+
+    <script src="../js/subject.js"></script>
+</body>
+</html>

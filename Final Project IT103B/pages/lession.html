@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý môn học</title>
+    <link rel="stylesheet" href="../css/lession.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <aside class="sidebar">
+            <div class="logo-area">
+                <i style="font-size: 24px;">📚</i>
+                <div class="logo-text">
+                    <strong>Study Tracker</strong>
+                    <span>Quản lý tiến độ học tập</span>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="#"><img src="../assets/images/uuu.png" alt=""> Thống kê</a>
+                <a href="#" class="active"></i><img
+                        src="../assets/images/quanlimonhoc.png" alt=""> Quản lý môn học</a>
+                <a href="./subject.html"><img src="../assets/images/quanlibaihoc.png" alt=""> Quản
+                    lý   bài học</a>
+            </nav>
+        </aside>
+
+        <main class="main-body">
+            <header class="top-bar">
+                <i  style="color: #a0aec0; cursor: pointer;"><img
+                        src="../assets/images/View grid.png" alt=""></i>
+                <div class="top-right">
+                    <i ><img src="../assets/images/Vector.png" alt=""></i>
+                    <i ><img src="../assets/images/Vector (1).png" alt=""></i>
+                    <i ><img src="../assets/images/Vector (2).png" alt=""></i>
+                    <div class="user-dropdown" id="userDropdown">
+                        <img src="https://i.pravatar.cc/35" alt="User" class="user-avatar" style="border-radius: 50%;">
+                        <div class="logout-menu" id="logoutMenu">
+                            <button type="button" id="logoutBtn">Đăng xuất</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content">
+                <div class="heading-row">
+                    <h1>Môn học</h1>
+                    <div class="heading-actions">
+                        <div class="action-group">
+                            <select class="filter-status" id="statusFilter">
+                                <option value="all">Tất cả trạng thái</option>
+                                <option value="active">Đang hoạt động</option>
+                                <option value="inactive">Ngừng hoạt động</option>
+                            </select>
+
+                        </div>
+                        <button class="btn-add" onclick="showAddForm()">Thêm mới môn học</button>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <input id="searchInput" oninput="findLesson()" type="text"
+                        placeholder="Tìm kiếm môn học theo tên...">
+                    <i ><img src="../assets/images/Shape.png" alt=""></i>
+                </div>
+                <br>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tên môn học <i ><img
+                                            src="../assets/images/Icon.png" alt=""></i></th>
+                                <th>Trạng thái</th>
+                                <th>Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subjectTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <button><i class="fas fa-arrow-left"><img src="../assets/images/muitensangtrai.png"
+                                alt=""></i></button>
+
+                    <button class="pg-active">1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>4</button>
+                    <button>5</button>
+                    <button>6</button>
+                    <button>7</button>
+                    <button>...</button>
+                    <button>20</button>
+                    <button><i class="fas fa-arrow-right"><img src="../assets/images/arrow right.png"
+                                alt=""></i></button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="modalForm" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header-custom">
+                <h3 id="modalTitle">Thêm mới môn học</h3>
+                <span class="close-icon" onclick="closeForm()">&times;</span>
+            </div>
+            <div class="modal-body-custom">
+                <div class="input-group">
+                    <label>Tên môn học</label>
+                    <input type="text" id="subjectName" placeholder="Nhập tên môn học">
+                </div>
+                <div class="radio-group-container">
+                    <label>Trạng thái</label>
+                    <div class="radio-options">
+                        <label class="radio-item">
+                            <input type="radio" name="status" value="active" id="statusActive" checked>
+                            Đang hoạt động
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="status" value="inactive" id="statusInactive">
+                            Ngừng hoạt động
+                        </label>
+                    </div>
+                </div>
+                <div id="modalError" class="modal-error"></div>
+            </div>
+            <div class="modal-footer-custom">
+                <button class="btn-huy" onclick="closeForm()">Hủy</button>
+                <button class="btn-them" id="btnSave" onclick="saveSubject()">Thêm</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalDelete" class="modal-overlay">
+        <div class="modal-content">
+
+            <div class="warning-icon-wrapper">
+                <div class="warning-icon-circle">
+                    <img src="../assets/images/chamthan.png" alt="Cảnh báo">
+                </div>
+            </div>
+            <h3>Xác nhận</h3>
+            <p>Bạn có chắc chắn muốn xóa môn học này khỏi hệ thống không?</p>
+
+            <div class="modal-footer-custom">
+                <button class="btn-huy" onclick="closeDeleteConfirm()">Hủy</button>
+                <button class="btn-them" style="background-color: #e53e3e;" onclick="deleteSubject()">Xóa</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thông báo -->
+    <div id="notifySuccess" class="notification">
+        <div class="notif-header">
+            <span style="font-size: 18px;"><img src="../assets/images/Subtract.png" alt=""></span> Thành công
+        </div>
+        <p id="notifyMessage">Xóa môn học thành công</p>
+    </div>
+    <!-- Thông báo không có role đăng nhập -->
+    <div id="notifyAccess" class="notification" style="display: none;">
+        <div class="notif-header">
+            <span style="font-size: 18px;"><img src="../assets/images/Subtract.png" alt=""></span> Thông báo
+        </div>
+        <p id="notifyAccessMessage">Bạn không có quyền truy cập trang này.</p>
+    </div>
+    <script src="../js/app.js"></script>
+</body>
+
+</html>

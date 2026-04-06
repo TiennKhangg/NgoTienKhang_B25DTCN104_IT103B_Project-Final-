@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý khóa học</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">     
+    
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="search-bar">
+                <i class="fa fa-search"></i>
+                <img src="../assets/images/tim kiem.png" alt=""><input type="text" placeholder="Tìm kiếm"> 
+            </div>
+            <nav class="main-nav">
+                <a href="#" class="active">Trang chủ</a>
+                <a style="color: gainsboro;" href="#">Môn học</a>
+                <a style="color: gainsboro;" href="#">Bài học</a>
+                <img src="../assets/images/traitim.png" alt="">
+                <div class="user-dropdown" id="userDropdown">
+                    <img id="userIcon" src="../assets/images/nguoidung.png" alt="" style="cursor: pointer;">
+                    <div class="logout-menu" id="userLogoutMenu">
+                        <button type="button" id="userLogoutBtn">Đăng xuất</button>
+                    </div>
+                </div>
+            </nav>
+            
+        </div>
+    </header>
+
+    <div class="status-menu">
+        <a href="#" class="active">Tất cả môn học</a>
+        <a href="#">Đã hoàn thành</a>
+        <a href="#">Chưa hoàn thành</a>
+    </div>
+
+    <main class="course-grid">
+        <div class="course-card">
+            <h3>HTML cơ bản</h3>
+            <ul>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 01: Tổng quan về HTML</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 02: Thẻ Inline và Block</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 03: Thẻ hình ảnh</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 04: Thẻ chuyển trang</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 05: Thẻ Semantic</li>
+            </ul>
+            <a href="#" class="see-more">Xem thêm</a>
+        </div>
+
+        <div class="course-card">
+            <h3>CSS cơ bản</h3>
+            <ul>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 01: Tổng quan về CSS</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 02: Nhúng CSS vào trang Web</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 03: Position</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 04: Flexbox</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 05: Animation</li>
+            </ul>
+            <a href="#" class="see-more">Xem thêm</a>
+        </div>
+
+        <div class="course-card">
+            <h3>JavaScript cơ bản</h3>
+            <ul>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 01: Tổng quan ngôn ngữ JavaScript</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 02: Khai báo biến</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 03: Câu lệnh điều kiện</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 04: Vòng lặp</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 05: Mảng</li>
+            </ul>
+            <a href="#" class="see-more">Xem thêm</a>
+        </div>
+
+        <div class="course-card">
+            <h3>Lập trình với React.js</h3>
+            <ul>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 01: Tổng quan về React.js</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 02: Props, State, Event</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 03: React hook</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 04: UI Framework</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 05: React Router</li>
+            </ul>
+            <a href="#" class="see-more">Xem thêm</a>
+        </div>
+
+        <div class="course-card">
+            <h3>Lập trình với Java</h3>
+            <ul>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 01: Tổng quan về ngôn ngữ Java</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 02: Khai báo biến</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 03: Câu lệnh điều kiện</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 04: Vòng lặp</li>
+                <li><i class="fa-regular fa-circle-check"><img src="../assets/images/ticktron.png" alt=""></i> Session 05: Mảng</li>
+            </ul>
+            <a href="#" class="see-more">Xem thêm</a>
+        </div>
+
+        <div class="course-card empty-card">
+    <h3>Lập trình C</h3>
+    <div class="empty-card-body">
+        <p>Chưa có bài học nào</p>
+    </div>
+</div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <p>Chúng tôi cung cấp giải pháp học tập, giúp học sinh và 
+                    <br>viên học tập tốt hơn và hiệu quả hơn.</p>
+                <div class="social-icons">
+                    <i class="fa-brands fa-twitter"></i> <img src="../assets/images/chim.png" alt="">
+                    <i class="fa-brands fa-facebook-f"></i> <img src="../assets/images/Facebook.png" alt="">
+                    <i class="fa-brands fa-tiktok"></i> <img src="../assets/images/Tiktok.png" alt="">
+                    <i class="fa-brands fa-instagram"></i> <img src="../assets/images/Instagram.png" alt="">
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Danh mục</h4>
+                <a href="./lession.html">Môn học</a>
+                <a href="#">Bài học</a>
+                <a href="#">Ghi chú</a>
+            </div>
+            <div class="footer-links">
+                <h4>Hỗ trợ khách hàng</h4>
+                <a href="#">Tìm kiếm dịch vụ</a>
+                <a href="#">Điều khoản sử dụng</a>
+                <a href="#">Chính sách và điều khoản</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="logoutConfirmModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Xác nhận đăng xuất</h3>
+            <p>Bạn có chắc chắn muốn đăng xuất khỏi hệ thống không?</p>
+            <div class="modal-footer-custom">
+                <button id="cancelLogoutBtn" class="btn-huy">Hủy</button>
+                <button id="confirmLogoutBtn" class="btn-them">Đăng xuất</button>
+            </div>
+        </div>
+    </div>
+    <script src="../js/home.js"></script>
+</body>
+</html>
