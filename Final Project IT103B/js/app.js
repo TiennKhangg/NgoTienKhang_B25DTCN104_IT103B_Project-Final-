@@ -1,10 +1,11 @@
-﻿const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || 'null');
+const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || 'null');
 if (!loggedInUser || loggedInUser.role !== 'admin') {
     showAccessMessage('Bạn không có quyền truy cập trang này.');
     setTimeout(() => {
         window.location.href = 'home.html';
     }, 3000);
 }
+const SUBJECTS_STORAGE_KEY = 'subjects';
 const subjectTableBody = document.getElementById('subjectTableBody');
 const paginationContainer = document.querySelector('.pagination');
 const modalForm = document.getElementById('modalForm');
@@ -17,7 +18,7 @@ let currentPage = 1;
 let currentStatusFilter = 'all';
 const pageSize = 6;
 
-let subjects = [
+const defaultSubjects = [
     { id: '1', name: 'Lập trình C', status: 'active' },
     { id: '2', name: 'HTML cơ bản', status: 'active' },
     { id: '3', name: 'CSS cơ bản', status: 'active' },
@@ -26,6 +27,17 @@ let subjects = [
     { id: '6', name: 'Lập trình Frontend với VueJS', status: 'inactive' },
     { id: '7', name: 'Phân tích và thiết kế hệ thống', status: 'inactive' }
 ];
+
+function loadSubjectsFromStorage() {
+    const saved = JSON.parse(localStorage.getItem(SUBJECTS_STORAGE_KEY) || 'null');
+    return Array.isArray(saved) && saved.length ? saved : defaultSubjects.slice();
+}
+
+function saveSubjectsToStorage() {
+    localStorage.setItem(SUBJECTS_STORAGE_KEY, JSON.stringify(subjects));
+}
+
+let subjects = loadSubjectsFromStorage();
 
 // ========== HÀM TIỆN ÍCH ==========
 
@@ -115,8 +127,11 @@ function showAddForm() {
     document.getElementById('btnSave').innerText = 'Thêm';
     document.getElementById('subjectName').value = '';
     document.getElementById('statusActive').checked = true;
-    if (modalError) modalError.textContent = '';
-        modalForm.style.display = 'flex';
+    if (modalError) {
+        modalError.textContent = '';
+        modalError.classList.remove('show');
+    }
+    modalForm.style.display = 'flex';
 }
 
 //popup CHinh sửa
@@ -130,6 +145,10 @@ function showEditForm(icon) {
     document.getElementById('subjectName').value = subject.name;
     document.getElementById('statusActive').checked = subject.status === 'active';
     document.getElementById('statusInactive').checked = subject.status !== 'active';
+    if (modalError) {
+        modalError.textContent = '';
+        modalError.classList.remove('show');
+    }
     modalForm.style.display = 'flex';
 }
 
@@ -142,27 +161,45 @@ function saveSubject() {
     const name = document.getElementById('subjectName').value.trim();
     const status = document.querySelector('input[name="status"]:checked').value;
     if (!name) {
-        if (modalError) modalError.textContent = 'Vui lòng nhập tên môn học!';
+        if (modalError) {
+            modalError.textContent = 'Vui lòng nhập tên môn học!';
+            modalError.classList.add('show');
+        }
         return;
     }
-    //sửa
+
+    const isDuplicate = subjects.some(subject =>
+        subject.name.trim().toLowerCase() === name.toLowerCase() &&
+        subject.id !== editSubjectId
+    );
+    if (isDuplicate) {
+        if (modalError) {
+            modalError.textContent = 'Môn học này đã tồn tại!';
+            modalError.classList.add('show');
+        }
+        return;
+    }
+
     if (editSubjectId) {
         subjects = subjects.map((subject) => 
             subject.id === editSubjectId
                 ? { ...subject, name, status }
                 : subject
         );
-        //thêm
+        showMessage('Cập nhật môn học thành công.');
     } else {
         subjects.unshift({
             id: Date.now().toString(),
+            name,
             status
         });
         currentPage = 1;
+        showMessage('Thêm môn học thành công.');
     }
 
+    saveSubjectsToStorage();
     renderSubjects();
-        closeForm();
+    closeForm();
 }
 
 // popup xóa
@@ -180,6 +217,7 @@ function closeDeleteConfirm() {
 function deleteSubject() {
     if (!deleteSubjectId) return;
     subjects = subjects.filter((subject) => subject.id !== deleteSubjectId);
+    saveSubjectsToStorage();
     deleteSubjectId = null;
     const filteredSubjects = getFilteredSubjects()
     const totalPages = Math.max(1, Math.ceil(filteredSubjects.length / pageSize));
